@@ -51,6 +51,6 @@ Resources:
 Outputs:
   WalletDB:
     Description: WalletDB Information
-        Value: !Ref WalletDB
-        Export:
-          Name: WalletDB
+      Value: !Ref WalletDB
+      Export:
+        Name: WalletDB
