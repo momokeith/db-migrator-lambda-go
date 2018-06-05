@@ -51,11 +51,11 @@ Resources:
 Outputs:
   WalletDBEndpoint:
     Description: WalletDB Endpoint
-    Value: !Ref WalletDB.Endpoint.Address
+    Value: !GetAtt WalletDB.Endpoint.Address
     Export:
       Name: WalletDBEndpoint
   WalletDBPort:
     Description: WalletDB Port
-    Value: !Ref WalletDB.Endpoint.Port
+    Value: !GetAtt WalletDB.Endpoint.Port
     Export:
       Name: WalletDBPort
