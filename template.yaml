@@ -49,8 +49,13 @@ Resources:
         - CIDRIP: "0.0.0.0/0"
 
 Outputs:
-  WalletDB:
-    Description: WalletDB Information
-    Value: !Ref WalletDB
+  WalletDBEndpoint:
+    Description: WalletDB Endpoint
+    Value: !Ref WalletDB.Endpoint.Address
     Export:
-      Name: WalletDB
+      Name: WalletDBEndpoint
+  WalletDBPort:
+    Description: WalletDB Port
+    Value: !Ref WalletDB.Endpoint.Port
+    Export:
+      Name: WalletDBPort
