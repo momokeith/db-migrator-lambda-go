@@ -1,0 +1,26 @@
+version: 0.2
+env:
+  variables:
+    PACKAGE: "github.com/momokeith/db-migrator-lambda-go"
+phases:
+  install:
+    commands:
+      - mkdir -p "/go/src/$(dirname ${PACKAGE})"
+      - ln -s "${CODEBUILD_SRC_DIR}" "/go/src/${PACKAGE}"
+
+  pre_build:
+    commands:
+      - cd "/go/src/${PACKAGE}" && go get -t ./...
+
+  build:
+    commands:
+      - go build -o main
+
+  post_build:
+    commands:
+      - aws cloudformation package --template-file template.yaml --s3-bucket wallet.lambda
+                                   --output-template-file NewSamTemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - '**/*'
