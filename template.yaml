@@ -47,3 +47,10 @@ Resources:
       GroupDescription: "Ingress for Amazon EC2 security group"
       DBSecurityGroupIngress:
         - CIDRIP: "0.0.0.0/0"
+
+Outputs:
+  WalletDB:
+    Description: WalletDB Information
+        Value: !Ref WalletDB
+        Export:
+          Name: WalletDB
