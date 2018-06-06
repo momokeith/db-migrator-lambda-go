@@ -17,7 +17,9 @@ Resources:
     Properties:
       Handler: main
       Runtime: go1.x
-      Policies:  !Ref MigrateFunctionRole
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - !Ref CodePipelinePolicy
       CodeUri: ./
       Environment:
         Variables:
@@ -49,21 +51,18 @@ Resources:
       DBSecurityGroupIngress:
         - CIDRIP: "0.0.0.0/0"
 
-  MigrateFunctionRole:
-    Type: "AWS::IAM::Role"
+  CodePipelinePolicy:
+    Type: "AWS::IAM::Policy"
     Properties:
-      Path: "/"
-      Policies:
-        -
-          PolicyName: "codepipeline"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              -
-                Effect: "Allow"
-                Action:
-                  - "codepipeline:PutJobSuccessResult"
-                Resource: "*"
+      PolicyName: "Codepipeline"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          -
+            Effect: "Allow"
+            Action:
+              - "codepipeline:PutJobSuccessResult"
+            Resource: "*"
 
 Outputs:
   WalletDBEndpoint:
