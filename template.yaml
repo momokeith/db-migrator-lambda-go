@@ -17,6 +17,7 @@ Resources:
     Properties:
       Handler: main
       Runtime: go1.x
+      Policies:  !Ref MigrateFunctionRole
       CodeUri: ./
       Environment:
         Variables:
@@ -47,6 +48,22 @@ Resources:
       GroupDescription: "Ingress for Amazon EC2 security group"
       DBSecurityGroupIngress:
         - CIDRIP: "0.0.0.0/0"
+
+  MigrateFunctionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      Policies:
+        -
+          PolicyName: "codepipeline"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              -
+                Effect: "Allow"
+                Action:
+                  - "codepipeline:PutJobSuccessResult"
+                Resource: "*"
 
 Outputs:
   WalletDBEndpoint:
