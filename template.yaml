@@ -63,6 +63,9 @@ Resources:
             Action:
               - "codepipeline:PutJobSuccessResult"
             Resource: "*"
+      Roles:
+        -
+          Ref: "MigrateFunctionRole"
 
 Outputs:
   WalletDBEndpoint:
