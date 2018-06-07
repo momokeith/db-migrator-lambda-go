@@ -19,7 +19,7 @@ Resources:
       Runtime: go1.x
       Policies:
         - AWSLambdaBasicExecutionRole
-        - !Ref CodePipelinePolicy
+        - AWSCodePipelineCustomActionAccess
       CodeUri: ./
       Environment:
         Variables:
@@ -50,22 +50,6 @@ Resources:
       GroupDescription: "Ingress for Amazon EC2 security group"
       DBSecurityGroupIngress:
         - CIDRIP: "0.0.0.0/0"
-
-  CodePipelinePolicy:
-    Type: "AWS::IAM::Policy"
-    Properties:
-      PolicyName: "Codepipeline"
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          -
-            Effect: "Allow"
-            Action:
-              - "codepipeline:PutJobSuccessResult"
-            Resource: "*"
-      Roles:
-        -
-          Ref: "MigrateFunctionRole"
 
 Outputs:
   WalletDBEndpoint:
